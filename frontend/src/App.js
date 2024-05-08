@@ -25,7 +25,7 @@ const ImageUploader = () => {
         // console.log(image)
 
         // Send the JSON object to the backend
-        fetch('http://localhost:5000/base64_to_url', {
+        fetch('https://image-to-url-link-testing.onrender.com//base64_to_url', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

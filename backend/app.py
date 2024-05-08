@@ -7,7 +7,11 @@ app = Flask(__name__)
 CORS(app)
 app.static_folder = 'uploads'
 
+@app.route('/uploads/<path:filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.static_folder, filename)
 
+    
 @app.route('/base64_to_url', methods=['POST'])
 def base64_to_url():
     # Get the Base64 data and file name from the request
