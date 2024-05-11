@@ -13,13 +13,13 @@ function FileUpload() {
     formData.append('file', file);
 
     
-      fetch('http://127.0.0.1:5000/upload', {
+      fetch('https://image-to-url-link-testing.onrender.com/upload', {
         method: 'POST',
         body: formData,
       })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data.file_url)
         setFileUrl(data.file_url)
       }).catch((error) => console.error(error))
 
