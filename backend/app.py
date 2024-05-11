@@ -1,15 +1,19 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 import base64
 import os
 import uuid
 from flask_cors import CORS 
-
 
 app = Flask(__name__)
 CORS(app)
 
 UPLOAD_FOLDER = 'uploads'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# Serve files from the uploads folder
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/base64_to_url', methods=['POST'])
 def base64_to_url():
@@ -31,7 +35,9 @@ def base64_to_url():
     url = save_image(base64_data, unique_filename)
 
     # Return the URL as JSON response
-    return jsonify({'url': url})
+    # Make sure to remove the trailing slash from request.url_root if present
+    url_root = request.url_root.rstrip('/')
+    return jsonify({'url': url_root + '/uploads/' + unique_filename})
 
 def save_image(base64_data, filename):
     # Decode the Base64 data
