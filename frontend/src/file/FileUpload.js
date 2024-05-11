@@ -29,7 +29,10 @@ function FileUpload() {
 
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
+      <input 
+       onChange={handleFileChange} 
+       type="file" 
+       accept=".png, .jpg, .jpeg, .gif" />
       <button onClick={handleSubmit}>Upload</button>
       {fileUrl && (
         <div>

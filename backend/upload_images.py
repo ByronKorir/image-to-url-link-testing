@@ -41,5 +41,4 @@ def generate_url(file):
     else:
         return {'error': 'File type not allowed'}
 
-if __name__ == '__main__':
-    app.run(debug=True)
+
