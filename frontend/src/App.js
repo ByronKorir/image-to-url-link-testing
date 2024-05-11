@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 const ImageUploader = () => {
     const [image, setImage] = useState(null);
     const [name, setName] = useState(null);
+    const [url,setUrl] = useState(null);
 
     const handleImageChange = (event) => {
         const file = event.target.files[0];
@@ -25,7 +26,7 @@ const ImageUploader = () => {
         // console.log(image)
 
         // Send the JSON object to the backend
-        fetch('https://image-to-url-link-testing.onrender.com//base64_to_url', {
+        fetch('http://localhost:5000/base64_to_url', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -36,18 +37,22 @@ const ImageUploader = () => {
         .then((res) => res.json())
         .then(response => {
             // Handle response from server
+            setUrl(response.url)
             console.log(response);
         })
         .catch(error => {
             console.error('Error uploading image:', error);
         });
     };
+    console.log(url)
 
     return (
         <div>
         <h2 className='text-red-500'>ok Tests</h2>
             <input type="file" onChange={handleImageChange} />
             <button onClick={uploadImage}>Upload Image</button>
+        
+        {url && (<img src={url} alt={name} />)}
         </div>
     );
 };
